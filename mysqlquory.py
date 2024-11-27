@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import matplotlib.dates as mdates
 from matplotlib.ticker import MaxNLocator
-import seaborn as sns
 import time
 import schedule
 import smtplib
