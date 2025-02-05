@@ -86,7 +86,7 @@ def storemongo(data):
 #Store data in mysql
 def storemysql(data):
     try:
-       mydb=mysql.connector.connect(host="localhost",user="root",password="",database="esp")
+       mydb=mysql.connector.connect(host="localhost",user="root",password="password",database="espdatabase")
        print(f"my sql status :{mydb.is_connected()}")
        if (mydb.is_connected):
            print("My sql connected successfully")
@@ -98,7 +98,7 @@ def storemysql(data):
        else:
            pass
        mycursor=mydb.cursor()
-       col="INSERT INTO espdata (`Updated time`, `gateway time`, `Count`, `MAC ID`, `IP`, `RSSI`) VALUES(%s,%s,%s,%s,%s,%s)"
+       col="INSERT INTO espdata (`Updated_Time`, `Gateway_Time`, `Count`, `MAC`, `IP`, `RSSI`) VALUES(%s,%s,%s,%s,%s,%s)"
        val=(data["UpdatedTime"],data["Gateway time"],data["Count"],data["MAC ID"],data["IP"],data["RSSI"])
        mycursor.execute(col, val)
        mydb.commit()
