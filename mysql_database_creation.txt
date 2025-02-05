@@ -2,12 +2,12 @@ create database espdatabase;
 use espdatabase;
 create table espdata(
 Data_id int primary key AUTO_INCREMENT,
-Gateway_Time datetime,
-Updated_Time datetime,
-Count int,
-MAC varchar(20),
-IP varchar(20),
-RSSI int
+Gateway_Time datetime default null,
+Updated_Time datetime default null,
+Count int default null,
+MAC varchar(20) default null,
+IP varchar(20) default null,
+RSSI int default null
 );
 
 select * from espdata;
