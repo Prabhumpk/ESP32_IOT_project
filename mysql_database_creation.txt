@@ -11,4 +11,4 @@ RSSI int
 );
 
 select * from espdata;
-insert into espdata(`Gateway_Time`,`Updated_Time`,`Count`,`MAC`,`IP`,`RSSI`) values('2025-02-06 00:01:13','2025-02-06 00:01:13',12,'MAC','123456789',12);
+insert into espdata(`Gateway_Time`,`Updated_Time`,`Count`,`MAC`,`IP`,`RSSI`) values('2025-02-06 00:01:13','2025-02-06 00:01:13',12,'MAC','123456789',12);//insert sample data
