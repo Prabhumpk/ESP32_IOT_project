@@ -5,6 +5,17 @@ import pandas as pd
 import csv
 from datetime import datetime
 import pymongo
+
+mqtt_Topic="Esp32data"
+mongo_database="mydb"
+mongo_collection="esp"
+
+mysql_host="localhost"
+mysql_user="root"
+mysql_password="password"
+mysql_database="espdatabase"
+mysql_table="espdata"
+
 logfile="D:\\python code\\Esp32IOTlog.txt"
 csvFilename="D:\\python code\\Esp32csvlog.csv"
 def logtime():
@@ -16,7 +27,7 @@ def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected successfully to broker")
         # Subscribe to a topic after successful connection
-        client.subscribe("Esp32data",qos=2)  
+        client.subscribe(mqtt_Topic,qos=2)  
         entry=f"{logtime()} -MQTT-Connection-possitive\n"
         with open(logfile,"a") as log_file:
             log_file.write(entry)
@@ -59,8 +70,8 @@ def storemongo(data):
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         print(f"MongoDb connection status: {myclient.admin.command('ping')}")
         print(f"Mongodb connection successfully")
-        mydb = myclient["mydb"]
-        mycol = mydb["esp"]
+        mydb = myclient[mongo_database]
+        mycol = mydb[mongo_collection]
         x = mycol.insert_one(data)
         if (x.inserted_id):
             entry=f"{logtime()} -Mongodb-Data storing-possitive\n"
@@ -86,7 +97,7 @@ def storemongo(data):
 #Store data in mysql
 def storemysql(data):
     try:
-       mydb=mysql.connector.connect(host="localhost",user="root",password="password",database="espdatabase")
+       mydb=mysql.connector.connect(host=mysql_host,user=mysql_user,password=mysql_password,database=mysql_database)
        print(f"my sql status :{mydb.is_connected()}")
        if (mydb.is_connected):
            print("My sql connected successfully")
@@ -98,7 +109,7 @@ def storemysql(data):
        else:
            pass
        mycursor=mydb.cursor()
-       col="INSERT INTO espdata (`Updated_Time`, `Gateway_Time`, `Count`, `MAC`, `IP`, `RSSI`) VALUES(%s,%s,%s,%s,%s,%s)"
+       col="INSERT INTO mysql_table (`Updated_Time`, `Gateway_Time`, `Count`, `MAC`, `IP`, `RSSI`) VALUES(%s,%s,%s,%s,%s,%s)"
        val=(data["UpdatedTime"],data["Gateway time"],data["Count"],data["MAC ID"],data["IP"],data["RSSI"])
        mycursor.execute(col, val)
        mydb.commit()
