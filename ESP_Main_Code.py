@@ -18,6 +18,7 @@ mysql_table="espdata"
 
 logfile="D:\\python code\\Esp32IOTlog.txt"
 csvFilename="D:\\python code\\Esp32csvlog.csv"
+
 def logtime():
     currenttime=datetime.now()
     ctime=currenttime.strftime("%Y/%m/%d %H:%M:%S")
