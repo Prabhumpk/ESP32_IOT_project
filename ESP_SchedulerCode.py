@@ -14,7 +14,7 @@ mysql_host="localhost"
 mysql_user="root"
 mysql_password="password"
 mysql_database="espdatabase"
-mysql_table="esp_scheduler"
+mysql_table="esp"
 
 num=1
 nums=0
